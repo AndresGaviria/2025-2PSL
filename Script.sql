@@ -24,3 +24,23 @@ CREATE TABLE `db_universidad`.`personas` (
 INSERT INTO `db_universidad`.`estados` (`nombre`) VALUES ('Solter@s');
 INSERT INTO `db_universidad`.`personas` (`cedula`, `nombre`, `estado`, `fecha`, `activo`) 
 VALUES ('6546465', 'Pepito Perez', 1, NOW(), 1);
+
+DELIMITER $$
+CREATE PROCEDURE `db_universidad`.`proc_select_estados`()
+BEGIN 
+    SELECT `id`,
+        `nombre`
+    FROM `db_universidad`.`estados`;
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE `db_universidad`.`proc_insert_estados`(
+    IN `_Nombre` VARCHAR(50),
+    INOUT `Respuesta` INT
+)
+BEGIN 
+    INSERT INTO `db_universidad`.`estados` (`nombre`) 
+    VALUES ('_Nombre');
+
+    SET `Respuesta` = 1;
+END$$
