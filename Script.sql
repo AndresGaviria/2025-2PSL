@@ -2,6 +2,7 @@ CREATE USER 'user_ptyhon'@'localhost' IDENTIFIED BY 'Clas3s1Nt2024_!';
 GRANT CREATE, INSERT, UPDATE, DELETE, SELECT, FILE, EXECUTE ON *.* TO 'user_ptyhon'@'localhost' WITH GRANT OPTION;
 
 CREATE DATABASE db_universidad;
+USE db_universidad;
 
 CREATE TABLE `db_universidad`.`estados` (
 	`id` INT AUTO_INCREMENT NOT NULL,
