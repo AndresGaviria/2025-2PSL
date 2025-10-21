@@ -29,9 +29,8 @@ class Conexion:
                 temporal: dict = {};
                 temporal["Id"] = elemento[0];
                 temporal["Nombre"] = elemento[1];
-                
-                respuesta[str(contador)] = temporal;
                 contador = contador + 1;
+                respuesta[str(contador)] = temporal;
 
             cursor.close();
             conexion.close();
@@ -42,7 +41,21 @@ class Conexion:
 
 @app.route('/main3/CargarEstados/<string:entrada>', methods=["GET"])
 def CargarEstados(entrada: str) -> str :
-    return "Hola mundo!";
+    respuesta: dict = {};
+    try:
+        entrada = entrada.replace("'", '"');
+        respuesta = json.loads(entrada);
+
+        conexion: Conexion = Conexion();
+        respuesta["Entidades"] = conexion.CargarEstados();
+        respuesta["Respuesta"] = "OK";
+
+        """ return respuesta; """
+        return flask.jsonify(respuesta);
+    except Exception as ex:
+        respuesta["Error"] = str(ex);
+        respuesta["Respuesta"] = "Error";
+        return flask.jsonify(respuesta);
 
 app.run('localhost', 4040);
 
