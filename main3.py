@@ -10,7 +10,7 @@ class Conexion:
     cadena_conexion: str = """
         Driver={MySQL ODBC 9.0 Unicode Driver};
         Server=localhost;
-        Database=db_universidad;
+        Database=db_personas;
         PORT=3306;
         user=user_ptyhon;
         password=Clas3s1Nt2024_!""";
@@ -24,13 +24,13 @@ class Conexion:
             cursor = conexion.cursor();
             cursor.execute(consulta);
 
-            contador: int = 0;
+            contador = 0;
             for elemento in cursor:
-                temporal: dict = {};
+                temporal: dict = { };
                 temporal["Id"] = elemento[0];
                 temporal["Nombre"] = elemento[1];
-                contador = contador + 1;
                 respuesta[str(contador)] = temporal;
+                contador = contador + 1;
 
             cursor.close();
             conexion.close();
