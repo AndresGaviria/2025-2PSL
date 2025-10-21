@@ -1,4 +1,10 @@
 import pyodbc;
+import sys;
+import flask;
+import json;
+
+print(__name__);
+app = flask.Flask(__name__);
 
 class Conexion:
     cadena_conexion: str = """
@@ -10,29 +16,35 @@ class Conexion:
         password=Clas3s1Nt2024_!""";
 
     def CargarEstados(self) -> dict:
-        conexion = pyodbc.connect(self.cadena_conexion);
-
-        consulta: str = """ SELECT * FROM estados; """;
-        cursor = conexion.cursor();
-        cursor.execute(consulta);
-
         respuesta: dict = {};
-        contador: int = 0;
-        for elemento in cursor:
-            tempotal: dict = {};
-            tempotal["Id"] = elemento[0];
-            tempotal["Nombre"] = elemento[1];
-            
-            respuesta[str(contador)] = tempotal;
-            contador = contador + 1;
+        try:
+            conexion = pyodbc.connect(self.cadena_conexion);
 
-        cursor.close();
-        conexion.close();
+            consulta: str = """ SELECT * FROM estados; """;
+            cursor = conexion.cursor();
+            cursor.execute(consulta);
 
-        return respuesta;
+            contador: int = 0;
+            for elemento in cursor:
+                temporal: dict = {};
+                temporal["Id"] = elemento[0];
+                temporal["Nombre"] = elemento[1];
+                
+                respuesta[str(contador)] = temporal;
+                contador = contador + 1;
 
-conexion = Conexion();
-conexion.CargarEstados();
+            cursor.close();
+            conexion.close();
+            return respuesta;
+        except Exception as ex:
+            respuesta["Error"] = str(ex);
+            return respuesta;
+
+@app.route('/main3/CargarEstados/<string:entrada>', methods=["GET"])
+def CargarEstados(entrada: str) -> str :
+    return "Hola mundo!";
+
+app.run('localhost', 4040);
 
 
 """
