@@ -46,7 +46,6 @@ def CargarEstados(entrada: str) -> str :
 
 app.run('localhost', 4040);
 
-
 """
 py -m pip install pyodbc
 py -m pip install Flask
