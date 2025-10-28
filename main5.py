@@ -42,7 +42,6 @@ class EncriptarAES1:
         plaintext = aesCipher.decrypt_and_verify(ciphertext, authTag);
         return plaintext.decode();
 
-print("ENCRIPT 4 Python con VS Code");
 print("MD5---------------------------");
 test = EncriptarMD5();
 test.Executar();
