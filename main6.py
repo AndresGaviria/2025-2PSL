@@ -28,11 +28,13 @@ class Conexion:
             cursor = conexion.cursor();
             cursor.execute(consulta);
 
+            aes = EncriptarAES();
+
             contador = 0;
             for elemento in cursor:
                 temporal: dict = { };
                 temporal["Id"] = elemento[0];
-                temporal["Nombre"] = elemento[1];
+                temporal["Nombre"] = aes.Descifrar(elemento[1]);
                 respuesta[str(contador)] = temporal;
                 contador = contador + 1;
 
@@ -43,12 +45,23 @@ class Conexion:
             respuesta["Error"] = str(ex);
             return respuesta;
 
-class EncriptarMD5:
+class EncriptarAES:
+    secretKey = b'4563265512345678';
+    
     def Encriptar(self, valor: str) -> str :
-        return str(hashlib.md5(valor.encode('utf-8')).hexdigest());
+        aesCipher = AES.new(self.secretKey, AES.MODE_GCM);
+        ciphertext, authTag = aesCipher.encrypt_and_digest(str.encode(valor));
+        response = (ciphertext, aesCipher.nonce, authTag);
+        return binascii.hexlify(response[0]).decode() + '|' + binascii.hexlify(response[1]).decode() + '|' + binascii.hexlify(response[2]).decode();
 
     def Descifrar(self, valor: str) -> str :
-        return None;
+        split = valor.split('|');
+        ciphertext = binascii.unhexlify(split[0]);
+        nonce = binascii.unhexlify(split[1]);
+        authTag = binascii.unhexlify(split[2]);
+        aesCipher = AES.new(self.secretKey, AES.MODE_GCM, nonce);
+        plaintext = aesCipher.decrypt_and_verify(ciphertext, authTag);
+        return plaintext.decode();
 
 @app.route('/main6/Token/<string:entrada>', methods=["GET"])
 def Token(entrada: str) -> str :

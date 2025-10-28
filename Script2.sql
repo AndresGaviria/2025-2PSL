@@ -21,7 +21,7 @@ CREATE TABLE `db_universidad`.`personas` (
     CONSTRAINT `fk_personas__estados` FOREIGN KEY (`estado`) REFERENCES `estados`(`id`)
 );
 
-INSERT INTO `db_universidad`.`estados` (`nombre`) VALUES ('431e7d5ae4fd61c93ee027a84701cd22');
+INSERT INTO `db_universidad`.`estados` (`nombre`) VALUES ('e4ffb621b82a861f|d13cb7c538f72a01c9343135f1f6ea66|6fde1a0e482bc8e979336af9c7c14333');
 INSERT INTO `db_universidad`.`personas` (`cedula`, `nombre`, `estado`, `fecha`, `activo`) 
 VALUES ('6546465', 'Pepito Perez', 1, NOW(), 1);
 

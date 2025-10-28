@@ -16,13 +16,13 @@ class EncriptarMD5:
         return None;
 
 class EncriptarAES1:
-    secretKey = os.urandom(32);
-    
+    secretKey = b'4563265512345678';
+
     def Executar(self) -> None :
         valor = "Solter@s";
         print("Value: " + valor);
         resultado = self.Encriptar(valor);
-        print("Encrypt: " + resultado[0]);
+        print("Encrypt: " + resultado);
 
         resultado = self.Descifrar(resultado);
         print("Decrypt: " + resultado);
