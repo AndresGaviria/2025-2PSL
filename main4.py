@@ -3,11 +3,12 @@ import jwt;
 try:
     key = "EstaEsLaContraseña";
 
-    encode = jwt.encode({"Usuario": "Test.jhsgdfhgdjh"}, key, algorithm="HS256");
-    print(encode);
+    encoded = jwt.encode({"Usuario": "Test.jhsgdfhgdjh"}, key, algorithm="HS256");
+    print(encoded);
 
-    decode = jwt.decode(encode, key, algorithms="HS256");
-    print(decode);
+    decoded = jwt.decode(encode, key, algorithms="HS256");
+    print(decoded);
+    print(decoded["Usuario"]);
 except Exception as ex:
     print(ex);
 
