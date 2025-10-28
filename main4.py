@@ -6,7 +6,7 @@ try:
     encoded = jwt.encode({"Usuario": "Test.jhsgdfhgdjh"}, key, algorithm="HS256");
     print(encoded);
 
-    decoded = jwt.decode(encode, key, algorithms="HS256");
+    decoded = jwt.decode(encoded, key, algorithms="HS256");
     print(decoded);
     print(decoded["Usuario"]);
 except Exception as ex:
