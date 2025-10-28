@@ -4,7 +4,7 @@ from Crypto.Cipher import AES
 
 class EncriptarMD5:
     def Executar(self) -> None :
-        valor = "Test";
+        valor = "Solter@s";
         print("Value: " + valor);
         resutlado = self.Encriptar(valor);
         print("Encrypt: " + resutlado);
@@ -19,7 +19,7 @@ class EncriptarAES1:
     secretKey = os.urandom(32);
     
     def Executar(self) -> None :
-        valor = "Test";
+        valor = "Solter@s";
         print("Value: " + valor);
         resultado = self.Encriptar(valor);
         print("Encrypt: " + resultado[0]);

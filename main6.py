@@ -3,6 +3,9 @@ import sys;
 import flask;
 import json;
 import jwt;
+import hashlib
+import binascii, os
+from Crypto.Cipher import AES
 
 print(__name__);
 app = flask.Flask(__name__);
@@ -11,7 +14,7 @@ class Conexion:
     cadena_conexion: str = """
         Driver={MySQL ODBC 9.0 Unicode Driver};
         Server=localhost;
-        Database=db_personas;
+        Database=db_universidad;
         PORT=3306;
         user=user_ptyhon;
         password=Clas3s1Nt2024_!""";
@@ -40,7 +43,14 @@ class Conexion:
             respuesta["Error"] = str(ex);
             return respuesta;
 
-@app.route('/main3/Token/<string:entrada>', methods=["GET"])
+class EncriptarMD5:
+    def Encriptar(self, valor: str) -> str :
+        return str(hashlib.md5(valor.encode('utf-8')).hexdigest());
+
+    def Descifrar(self, valor: str) -> str :
+        return None;
+
+@app.route('/main6/Token/<string:entrada>', methods=["GET"])
 def Token(entrada: str) -> str :
     respuesta: dict = {};
     try:
@@ -63,7 +73,7 @@ def Token(entrada: str) -> str :
         respuesta["Respuesta"] = "Error";
         return flask.jsonify(respuesta);
 
-@app.route('/main3/CargarEstados/<string:entrada>', methods=["GET"])
+@app.route('/main6/CargarEstados/<string:entrada>', methods=["GET"])
 def CargarEstados(entrada: str) -> str :
     respuesta: dict = {};
     try:
